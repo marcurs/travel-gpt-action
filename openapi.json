@@ -1,0 +1,79 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Buscador de Hoteles",
+    "description": "API para buscar hoteles usando la API de Skyscanner vía RapidAPI",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://TU_DOMINIO_O_RENDER.com"
+    }
+  ],
+  "paths": {
+    "/buscar_hoteles": {
+      "post": {
+        "summary": "Buscar hoteles",
+        "operationId": "buscarHoteles",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ciudad": {
+                    "type": "string",
+                    "description": "Nombre de la ciudad (ej. Cancún)"
+                  },
+                  "checkin": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Fecha de check-in (YYYY-MM-DD)"
+                  },
+                  "checkout": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Fecha de check-out (YYYY-MM-DD)"
+                  },
+                  "adultos": {
+                    "type": "integer",
+                    "description": "Número de adultos",
+                    "default": 2
+                  }
+                },
+                "required": ["ciudad", "checkin", "checkout"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lista de hoteles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "resultados": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "nombre": { "type": "string" },
+                          "precio": { "type": "string" },
+                          "rating": { "type": "number" },
+                          "direccion": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
